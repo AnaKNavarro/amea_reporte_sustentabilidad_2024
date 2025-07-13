@@ -36,6 +36,37 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Cargar las páginas generadas en el flipbook
-    pages.forEach(page => flipbookElement.appendChild(page));
     pageFlip.loadFromHTML(pages);
+
+    // --- Lógica del Índice Interactivo ---
+    const indexList = document.getElementById('index-list');
+
+    // Definimos los títulos y páginas para el índice
+    const indexData = [
+        { title: 'Resumen ejecutivo', page: 3 },
+        { title: 'Iniciativas principales', page: 4 },
+        { title: 'Introducción', page: 5 },
+        { title: 'Energía', page: 8 },
+        { title: 'Huella de carbono', page: 9 },
+        { title: 'Biodiversidad', page: 14 },
+        { title: 'Diversidad, equidad e inclusión', page: 16 },
+        { title: 'Impacto a la comunidad', page: 17 },
+        { title: 'Política de sustentabilidad', page: 20 },
+        { title: 'Canales de denuncia', page: 21 }
+    ];
+
+    indexData.forEach(item => {
+        const listItem = document.createElement('li');
+        listItem.textContent = item.title;
+        // La API usa paginación 0-indexada, así que restamos 1
+        const pageNumber = item.page - 1;
+        listItem.setAttribute('data-page-number', pageNumber);
+        
+        listItem.addEventListener('click', (e) => {
+            const pageToFlip = parseInt(e.target.getAttribute('data-page-number'), 10);
+            pageFlip.flip(pageToFlip);
+        });
+
+        indexList.appendChild(listItem);
+    });
 });
