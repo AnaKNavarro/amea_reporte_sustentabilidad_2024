@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         const img = document.createElement('img');
-        img.src = `img/${i}.png`;
+        img.src = `img/${i}.webp`;
         img.alt = `Página ${i}`;
         
         page.appendChild(img);
